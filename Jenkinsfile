@@ -4,8 +4,10 @@ pipeline{
     tools {
         maven "Maven-3.6.0"
     }
-    environment{
-        dockerImage=""
+    environment {
+        registry = "6421/docker-test"
+        registryCredential = 'dockerhub'
+        dockerImage = ''
     }
     stages
     {
@@ -63,14 +65,32 @@ pipeline{
                 )
             }
         }
-        stage("Build Image")
+        stage('Building image')
         {
             steps
             {
                 script {
-                        dockerImage = docker.build registry 
+                        dockerImage = docker.build registry
                 }
             }
         }
+	stage("Deploye Image")
+	{
+	     steps
+	     {
+		script{
+			docker.withRegistry( '', registryCredential ){
+			dockerImage.push()
+			}
+		}
+             }
+	}
+	stage("Removed Unused Docker Images")
+	{
+	     steps
+	     {
+		sh "docker rmi $registry:$BUILD_NUMBER"
+	     }
+	}
     }
 }
