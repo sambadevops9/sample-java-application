@@ -70,27 +70,27 @@ pipeline{
             steps
             {
                 script {
-                        dockerImage = docker.build registry
+                        dockerImage = docker.build registry+ ":$BUILD_NUMBER"
                 }
             }
         }
-	stage("Deploye Image")
-	{
-	     steps
-	     {
-		script{
-			docker.withRegistry( '', registryCredential ){
-			dockerImage.push()
-			}
-		}
-             }
-	}
-	stage("Removed Unused Docker Images")
-	{
-	     steps
-	     {
-		sh "docker rmi $registry:$BUILD_NUMBER"
-	     }
-	}
+	    stage("Deploye Image")
+	    {
+	        steps
+	        {
+		        script{
+			            docker.withRegistry( '', registryCredential ){
+			            dockerImage.push()
+			           }
+		    }
+                    }
+	    }
+	    stage("Remove Unused Image")
+	    {
+	        steps
+	        {
+	            sh "docker rmi $registry:$BUILD_NUMBER"
+	        }
+	    }
     }
 }
