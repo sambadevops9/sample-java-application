@@ -4,8 +4,9 @@ pipeline{
     tools {
         maven "Maven-3.6.0"
     }
-    environment{
-        dockerImage=""
+    environment {
+    registry = "docker_hub_account/repository_name"
+    registryCredential = 'dockerhub'
     }
     stages
     {
@@ -63,12 +64,12 @@ pipeline{
                 )
             }
         }
-        stage("Build Image")
+        stage('Building image')
         {
             steps
             {
                 script {
-                        dockerImage = docker.build registry 
+                        docker.build registry + ":$BUILD_NUMBER" 
                 }
             }
         }
