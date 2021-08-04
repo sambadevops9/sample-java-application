@@ -4,6 +4,9 @@ pipeline{
     tools {
         maven "Maven-3.6.0"
     }
+    environment{
+        dockerImage=""
+    }
     stages
     {
         stage('Continues Download')
@@ -58,6 +61,15 @@ pipeline{
                         ]
                     }'''
                 )
+            }
+        }
+        stage("Build Image")
+        {
+            steps
+            {
+                script {
+                        dockerImage = docker.build registry 
+                }
             }
         }
     }
