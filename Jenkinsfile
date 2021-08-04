@@ -36,7 +36,7 @@ pipeline{
             {
                 rtServer(
                     id: "Artifactory-Server",
-                    url: 'http://20.42.56.106:8081/artifactory',
+                    url: 'http://http://52.188.185.223/:8081/artifactory',
                     username: 'admin',
                     password: 'Samba@345',
                     bypassProxy: true,
