@@ -19,7 +19,7 @@ pipeline{
             {
                 sh '''mvn sonar:sonar \\
                 -Dsonar.projectKey=sonartoken \\
-                -Dsonar.host.url=http://20.42.56.106:9000/ \\
+                -Dsonar.host.url=http://52.188.185.223:9000/ \\
                 -Dsonar.login=57037d20e845b1129c8228f74cf0bcb2dbb171b8'''
             }
         }
