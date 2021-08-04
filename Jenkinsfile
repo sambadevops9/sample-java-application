@@ -5,8 +5,9 @@ pipeline{
         maven "Maven-3.6.0"
     }
     environment {
-    registry = "6421/docker-test"
-    registryCredential = 'dockerhub'
+        registry = "6421/docker-test"
+        registryCredential = 'dockerhub'
+        dockerImage=''
     }
     stages
     {
